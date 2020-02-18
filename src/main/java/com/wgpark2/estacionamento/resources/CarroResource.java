@@ -1,6 +1,10 @@
 package com.wgpark2.estacionamento.resources;
 
 import com.wgpark2.estacionamento.domain.Carro;
+import com.wgpark2.estacionamento.services.CarroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +17,13 @@ import java.util.List;
 @RequestMapping(value = "/carros")
 public class CarroResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Carro> lista() {
+    @Autowired
+    CarroService carroService;
 
-        Carro carro1 = new Carro(1, "ABC1920");
-        Carro carro2 = new Carro(2, "BCD2122");
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Carro> find(@PathVariable Integer id) {
 
-        List<Carro> carros = new ArrayList<>();
-        carros.addAll(Arrays.asList(carro1, carro2));
-        return carros;
+        Carro carro = carroService.buscar(id);
+        return ResponseEntity.ok().body(carro);
     }
 }
