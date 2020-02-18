@@ -1,14 +1,18 @@
 package com.wgpark2.estacionamento.domain;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-
+@Entity
+@Table(name = "TB_CARRO")
 public class Carro implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String placa;
 
